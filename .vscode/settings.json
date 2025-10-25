@@ -1,0 +1,7 @@
+{
+    "llmCommitter.llmInstructions": "",
+    "llmCommitter.llmProvider": "openai",
+    "llmCommitter.llmModel": "gpt-4o-mini",
+    "llmCommitter.maxTokens": 7500,
+    "llmCommitter.temperature": 1
+}
