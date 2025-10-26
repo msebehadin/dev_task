@@ -4,5 +4,5 @@ import { useState } from 'react'
 
 export function ReactQueryProvider({ children }) {
   const [client] = useState(() => new QueryClient())
-  return <QueryClientProvider client={client}> {children} </QueryClientProvider>
+  return <QueryClientProvider client={client}> {children}</QueryClientProvider>
 }
