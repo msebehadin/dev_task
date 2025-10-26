@@ -1,8 +1,23 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
-export const useAppStore = create((set) => ({
-  theme: 'light',
+type User = {
+  id?: number;
+  role?: string;
+  name: string;
+};
+
+type Theme = "light" | "dark"; 
+
+type AppStore = {
+  user: User | null;
+  setUser: (user: User | null) => void;
+  theme: Theme;
+  setTheme: (mode: Theme) => void;
+};
+
+export const useAppStore = create<AppStore>((set) => ({
   user: null,
-  setTheme: (mode:unknown) => set({ theme: mode }),
-  setUser: (user:unknown) => set({ user }),
+  theme: "light",
+  setUser: (user) => set({ user }),
+  setTheme: (mode) => set({ theme: mode }),
 }));

@@ -1,4 +1,4 @@
-import { Calendar, Home, FolderKanban, Users, Settings } from "lucide-react"
+import {  Home, FolderKanban, Users, Settings } from "lucide-react"
 
 import {
   Sidebar,
@@ -10,28 +10,29 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import Link from "next/link"
 
 // Menu items.
 const items = [
   {
     title: "Home",
-    url: "dashboard",
+    url: "/",
     icon: Home,
   },
   {
     title: "Tasks",
-    url: "dashboard/task",
+    url: "/task",
     icon: FolderKanban,
   },
   {
     title: "Users",
-    url: "dashboard/users",
+    url: "/users",
     icon: Users,
   },
  
   {
     title: "Settings",
-    url: "dashboard/setting",
+    url: "/setting",
     icon: Settings,
   },
 ]
@@ -41,16 +42,16 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Dev Task</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                    <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
