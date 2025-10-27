@@ -1,5 +1,5 @@
 
-import prisma from '../prisma'
+import {prisma} from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET() {
@@ -7,14 +7,14 @@ export async function GET() {
   return NextResponse.json(users)
 }
 
-export async function GetById(id) {
+export async function GetById(id: number) {
   const user = await prisma.user.findUnique({
     where: { id: id }
   })
   return NextResponse.json(user)
 }
 
-export async function POST(request) {
+export async function POST(request: { json: () => any }) {
   const body = await request.json()
   const { name, email } = body
 
@@ -24,7 +24,7 @@ export async function POST(request) {
 
   return NextResponse.json(newUser, { status: 201 })
 } 
-export async function PUT(request) {
+export async function PUT(request: { json: () => any }) {
   const body = await request.json()
   const { id, name, email } = body
 
@@ -40,7 +40,7 @@ export async function PUT(request) {
   return NextResponse.json(updatedUser)
 }
 
-export async function DELETE(request) {
+export async function DELETE(request: { json: () => any }) {
    const body=await request.json();
    const {id}=body;
    const deleteUser=await prisma.user.delete({
