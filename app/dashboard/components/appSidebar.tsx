@@ -30,11 +30,6 @@ const items = [
     icon: Users,
   },
  
-  {
-    title: "Settings",
-    url: "/setting",
-    icon: Settings,
-  },
 ]
 
 export function AppSidebar() {

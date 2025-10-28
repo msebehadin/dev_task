@@ -50,6 +50,11 @@ export default function TasksPage() {
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
           />
+          <Input 
+          placeholder="description"
+          value={form.description}
+          onChange={(e)=>setForm({...form,title:e.target.value})}
+          />
           <Button onClick={handleSubmit}>Add</Button>
         </CardContent>
       </Card>
