@@ -1,49 +1,35 @@
-
-import {prisma} from '@/lib/prisma'
+import { prisma } from '@/lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
+import { createUserSchema } from '@/lib/validation/schema'
+
 
 export async function GET() {
-  const users = await prisma.user.findMany()
-  return NextResponse.json(users)
+  const users=await prisma.user.findMany();
+   return NextResponse.json(users)
 }
-
-export async function GetById(id: number) {
-  const user = await prisma.user.findUnique({
-    where: { id: id }
-  })
-  return NextResponse.json(user)
+export async function POST(req:Request){
+  const body=await req.json();
+  const parse=createUserSchema.safeParse(body);
+  if(!parse.success) return NextResponse.json({error:parse.error.issues.flat()},{status:400})
+    const data=parse.data;
+  const newUser=await prisma.user.create({data})
+  return NextResponse.json(newUser);
 }
-
-export async function POST(request: { json: () => any }) {
-  const body = await request.json()
-  const { name, email } = body
-
-  const newUser = await prisma.user.create({
-    data: { name, email }
+export async function PUT(req:Request){
+  const body=await req.json();
+  const parse=createUserSchema.safeParse(body);
+  if(!parse.success) return NextResponse.json({error:parse.error.issues.flat()},{status:400})
+    const {id,...res}=parse.data;
+  const updateUser=await prisma.user.update({
+    where:{id},
+    data:res
   })
-
-  return NextResponse.json(newUser, { status: 201 })
-} 
-export async function PUT(request: { json: () => any }) {
-  const body = await request.json()
-  const { id, name, email } = body
-
-  if (!id) {
-    return NextResponse.json({ error: 'User ID is required' }, { status: 400 })
-  }
-
-  const updatedUser = await prisma.user.update({
-    where: { id: Number(id) },
-    data: { name, email }
-  })
-
-  return NextResponse.json(updatedUser)
+  return NextResponse.json(updateUser)
 }
-
-export async function DELETE(request: { json: () => any }) {
-   const body=await request.json();
-   const {id}=body;
-   const deleteUser=await prisma.user.delete({
-    where:{id:Number(id)}
-   }) 
+export async function DELETE(req:Request){
+  const {id}= await req.json();
+  const deleteUser=await prisma.user.delete({
+    where:{id}
+  })
+return NextResponse.json(deleteUser)
 }
