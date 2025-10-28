@@ -2,7 +2,7 @@
 
 import { ThemeProvider } from "@/components/ui/themeProvider"
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/app/dashboard/components/appSidebar"
+import  AppSidebar  from "@/app/dashboard/components/appSidebar"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import '@/app/globals.css'
 
